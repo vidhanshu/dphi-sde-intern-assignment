@@ -1,0 +1,13 @@
+.button {
+  padding: 10px 30px;
+  background: #44924c;
+  border-radius: 10px;
+  max-width: fit-content;
+  .text {
+    text-transform: capitalize;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Popins, sans-serif;
+  }
+}

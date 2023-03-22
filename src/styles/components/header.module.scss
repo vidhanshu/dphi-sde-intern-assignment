@@ -1,0 +1,40 @@
+.wrapper {
+  height: 416px;
+  background-color: #003145;
+  .container {
+    padding: 20px 0px;
+    background-image: url("../../../public/images/waves.png");
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    .title,
+    .subtitle {
+      color: white;
+    }
+    .title {
+      font-size: 42px;
+      font-weight: 500;
+    }
+    .subtitle {
+      font-size: 17px;
+    }
+    .left_header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 30px;
+      flex-basis: 60%;
+    }
+    .right_header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 199.89px;
+        height: 300px;
+      }
+    }
+  }
+}
