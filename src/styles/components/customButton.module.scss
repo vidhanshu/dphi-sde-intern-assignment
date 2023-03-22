@@ -1,8 +1,9 @@
 .button {
   padding: 10px 30px;
-  background: #44924c;
+  background: #44924c !important;
   border-radius: 10px;
   max-width: fit-content;
+  border: 1px solid red;
   .text {
     text-transform: capitalize;
     color: white;
