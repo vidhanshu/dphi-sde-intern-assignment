@@ -14,8 +14,8 @@ import { Box, Button, Chip, Container, IconButton, Modal } from "@mui/material";
 import { deleteProjectById, updateProject } from "../db";
 import { useCallback, useState } from "react";
 
+import { DetailsHeaderProps } from "../@types/props";
 import Nav from "./Nav";
-import { ProjectType } from "../@types";
 import dayjs from "dayjs";
 import styled from "@emotion/styled";
 import styles from "../styles/components/detailsHeader.module.scss";
@@ -33,11 +33,6 @@ const CustomButton = styled(Button)({
   },
 });
 
-interface DetailsHeaderProps {
-  data: ProjectType;
-  starred: boolean;
-  setStarred: React.Dispatch<React.SetStateAction<boolean>>;
-}
 function DetailsHeader({ data, starred, setStarred }: DetailsHeaderProps) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();

@@ -62,7 +62,7 @@ function Details() {
               >
                 GitHub Repository
               </CustomButton>
-              {data.other_link?.length && (
+              {data.other_link?.length > 0 && (
                 <CustomButton
                   startIcon={<RxExternalLink size={25} />}
                   variant="outlined"

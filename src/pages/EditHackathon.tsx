@@ -14,6 +14,7 @@ import { RiImageAddLine } from "react-icons/ri";
 import dayjs from "dayjs";
 import styles from "../styles/pages/addHackathon.module.scss";
 import { toast } from "react-toastify";
+import validator from "validator";
 
 function AddHackathon() {
   const [formdata, setFormdata] = useState<ProjectType>({} as ProjectType);
@@ -181,6 +182,17 @@ function AddHackathon() {
           <CustomButton
             onClick={() => {
               if (id) {
+                if (!validator.isURL(formdata.github_link)) {
+                  toast.error("Invalid GitHub URL");
+                  return;
+                }
+                if (
+                  formdata.other_link.length > 0 &&
+                  !validator.isURL(formdata.other_link)
+                ) {
+                  toast.error("Invalid Other URL");
+                  return;
+                }
                 updateProject(id, formdata);
                 setFormdata({} as ProjectType);
                 navigate("/");

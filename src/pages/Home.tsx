@@ -79,7 +79,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ padding: "50px 0" }}>
-          <p>{children}</p>
+          <div>{children}</div>
         </Box>
       )}
     </div>

@@ -1,11 +1,15 @@
 import { Box, Container } from "@mui/system";
-import { Button, TextField, TextFieldProps } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { ChangeEvent, useCallback, useState } from "react";
+import {
+  CustomeTextFieldProps,
+  FileUploadProps,
+  FileUploadedProps,
+} from "../@types/props";
 
 import { BsFillCloudArrowUpFill } from "react-icons/bs";
 import CustomButton from "../components/CustomButton";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
-import { HtmlHTMLAttributes } from "react";
 import { Nav } from "../components";
 import { ProjectType } from "../@types";
 import { RiImageAddLine } from "react-icons/ri";
@@ -14,11 +18,28 @@ import dayjs from "dayjs";
 import styles from "../styles/pages/addHackathon.module.scss";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import validator from "validator";
 
 function AddHackathon() {
-  const [formdata, setFormdata] = useState<ProjectType>({} as ProjectType);
+  //initial state
+  const [formdata, setFormdata] = useState<ProjectType>({
+    id: "",
+    title: "",
+    description: "",
+    summary: "",
+    image: "",
+    hackathon_name: "",
+    start_date: dayjs(new Date()).format("MM/DD/YYYY").toString(),
+    end_date: dayjs(new Date()).format("MM/DD/YYYY").toString(),
+    github_link: "",
+    other_link: "",
+    favourite: false,
+    created_at: dayjs(new Date()).format("MM/DD/YYYY").toString(),
+    updated_at: dayjs(new Date()).format("MM/DD/YYYY").toString(),
+  });
   const navigate = useNavigate();
 
+  //single function to handle text field change
   const handleTextFieldChange = useCallback(
     (evt: ChangeEvent<HTMLInputElement>) => {
       setFormdata((e) => ({ ...e, [evt.target.name]: evt.target.value }));
@@ -26,6 +47,7 @@ function AddHackathon() {
     []
   );
 
+  //single function to handle image upload
   const handleImageUpload = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       if (e.target.files) {
@@ -46,6 +68,7 @@ function AddHackathon() {
     [formdata]
   );
 
+  // cheking if all the required fields are filled
   let shouldKeeptDisabled =
     !formdata.description ||
     !formdata.title ||
@@ -66,6 +89,9 @@ function AddHackathon() {
             onChange={handleTextFieldChange}
             labelFor="title_field"
             label_text="Title *"
+            inputProps={{
+              maxLength: 100,
+            }}
           />
           <CustomTextField
             name="summary"
@@ -74,6 +100,9 @@ function AddHackathon() {
             labelFor="summary_field"
             label_text="Summary *"
             placeholder="A short summary of your submission (this will be visible with your submission)"
+            inputProps={{
+              maxLength: 300,
+            }}
           />
           <Box>
             <CustomTextField
@@ -175,6 +204,17 @@ function AddHackathon() {
           />
           <CustomButton
             onClick={() => {
+              if (!validator.isURL(formdata.github_link)) {
+                toast.error("Invalid GitHub URL");
+                return;
+              }
+              if (
+                formdata.other_link.length > 0 &&
+                !validator.isURL(formdata.other_link)
+              ) {
+                toast.error("Invalid Other URL");
+                return;
+              }
               addProject(formdata);
               setFormdata({} as ProjectType);
               toast.success("Successfully added");
@@ -194,10 +234,7 @@ function AddHackathon() {
 
 export default AddHackathon;
 
-type CustomeTextFieldProps = TextFieldProps & {
-  label_text: string;
-  labelFor: string;
-};
+//sub components
 function CustomTextField({
   labelFor,
   label_text,
@@ -217,10 +254,6 @@ function CustomTextField({
   );
 }
 
-type FileUploadProps = HtmlHTMLAttributes<HTMLInputElement> & {
-  label_text?: string;
-  info_text?: string;
-};
 function FileUpload(props: FileUploadProps) {
   return (
     <Box className={styles.file_upload_field}>
@@ -242,12 +275,6 @@ function FileUpload(props: FileUploadProps) {
   );
 }
 
-type FileUploadedProps = HtmlHTMLAttributes<HTMLInputElement> & {
-  label_text?: string;
-  info_text?: string;
-  image: string;
-  image_name: string;
-};
 function FileUploaded({
   info_text,
   label_text,
