@@ -11,3 +11,10 @@ export const generateRandomId = () => {
 export const generateRadomNumber = (lo: number, hi: number) => {
   return Math.floor(Math.random() * (hi - lo + 1)) + lo;
 };
+
+export const textShortner = (text: string, length: number) => {
+  if (text.length > length) {
+    return text.slice(0, length) + "...";
+  }
+  return text;
+}

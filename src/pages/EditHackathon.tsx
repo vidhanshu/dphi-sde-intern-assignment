@@ -1,7 +1,7 @@
 import { Box, Container } from "@mui/system";
 import { Button, TextField, TextFieldProps } from "@mui/material";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { addProject, getProjectById, updateProject } from "../db";
+import { getProjectById, updateProject } from "../db";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { BsFillCloudArrowUpFill } from "react-icons/bs";

@@ -21,6 +21,8 @@ const CustomTextField = styled(TextField)({
 function Home() {
   const [data, setData] = useState<ProjectType[]>([]);
   const [favourites, setFavourites] = useState<ProjectType[]>([]);
+  const [search, setSearch] = useState<string>("");
+  const [filter, setFilter] = useState<1 | -1>(1);
 
   useEffect(() => {
     const temp = getProjects();
@@ -32,7 +34,25 @@ function Home() {
     <div>
       <Header />
       <Container maxWidth="xl" sx={{ padding: "50px 0px" }}>
-        <HomeTabs data={data} favourites={favourites} />
+        <HomeTabs
+          setFavourites={setFavourites}
+          filter={filter}
+          setFilter={setFilter}
+          search={search}
+          setSearch={setSearch}
+          data={data.filter((e) => {
+            if (search === "") {
+              return true;
+            } else {
+              return (
+                e.title.toLowerCase().includes(search.toLowerCase()) ||
+                e.description.toLowerCase().includes(search.toLowerCase())
+              );
+            }
+          })}
+          setData={setData}
+          favourites={favourites}
+        />
       </Container>
     </div>
   );
@@ -77,10 +97,24 @@ type filterType = -1 | 1;
 type HomeTabsProps = {
   data: ProjectType[];
   favourites: ProjectType[];
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  search: string;
+  filter: filterType;
+  setFilter: React.Dispatch<React.SetStateAction<filterType>>;
+  setData: React.Dispatch<React.SetStateAction<ProjectType[]>>;
+  setFavourites: React.Dispatch<React.SetStateAction<ProjectType[]>>;
 };
-function HomeTabs({ data, favourites }: HomeTabsProps) {
+function HomeTabs({
+  data,
+  favourites,
+  search,
+  filter,
+  setFilter,
+  setSearch,
+  setData,
+  setFavourites,
+}: HomeTabsProps) {
   const [value, setValue] = useState(0);
-  const [filter, setFilter] = useState<filterType>(1);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -122,6 +156,10 @@ function HomeTabs({ data, favourites }: HomeTabsProps) {
         </Tabs>
         <Box display={"flex"} gap={5} alignItems={"center"}>
           <CustomTextField
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setSearch(e.target.value);
+            }}
+            value={search}
             size="small"
             className={styles.search_input}
             id="outlined-basic"
@@ -140,7 +178,39 @@ function HomeTabs({ data, favourites }: HomeTabsProps) {
             size="small"
             id="demo-simple-select"
             value={filter}
-            onChange={(e) => setFilter(e.target.value as filterType)}
+            onChange={(e) => {
+              setFilter(e.target.value as filterType);
+              setData((prev) => {
+                return prev.sort((a, b) => {
+                  if (filter === 1) {
+                    return (
+                      new Date(b.created_at).getTime() -
+                      new Date(a.created_at).getTime()
+                    );
+                  } else {
+                    return (
+                      new Date(a.created_at).getTime() -
+                      new Date(b.created_at).getTime()
+                    );
+                  }
+                });
+              });
+              setFavourites((prev) => {
+                return prev.sort((a, b) => {
+                  if (filter === 1) {
+                    return (
+                      new Date(b.created_at).getTime() -
+                      new Date(a.created_at).getTime()
+                    );
+                  } else {
+                    return (
+                      new Date(a.created_at).getTime() -
+                      new Date(b.created_at).getTime()
+                    );
+                  }
+                });
+              });
+            }}
           >
             <MenuItem value={1}>Newest</MenuItem>
             <MenuItem value={-1}>Oldest</MenuItem>
@@ -150,14 +220,14 @@ function HomeTabs({ data, favourites }: HomeTabsProps) {
       <TabPanel value={value} index={0}>
         <div className={styles.cards_grid}>
           {data.map((d, _) => (
-            <Card {...d} key={d.title} />
+            <Card {...d} key={d.id} />
           ))}
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className={styles.cards_grid}>
           {favourites.map((d, _) => (
-            <Card {...d} key={d.title} />
+            <Card {...d} key={d.id} />
           ))}
         </div>
       </TabPanel>

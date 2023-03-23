@@ -16,6 +16,7 @@ import { useCallback, useState } from "react";
 
 import Nav from "./Nav";
 import { ProjectType } from "../@types";
+import dayjs from "dayjs";
 import styled from "@emotion/styled";
 import styles from "../styles/components/detailsHeader.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -106,7 +107,7 @@ function DetailsHeader({ data, starred, setStarred }: DetailsHeaderProps) {
               <span className={styles.divider}></span>
               <Chip
                 icon={<AiFillCalendar color="white" size={20} />}
-                label="12 March"
+                label={dayjs(data.created_at).format("D MMM").toString()}
                 variant="filled"
                 sx={{
                   color: "white",

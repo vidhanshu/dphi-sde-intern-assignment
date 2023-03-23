@@ -19,7 +19,10 @@
   --title-invert: #ffffff;
   --text-invert: #ffffff;
 }
-
+div,
+p {
+  line-break: anywhere;
+}
 a {
   text-decoration: none;
   color: black;

@@ -10,4 +10,6 @@ export type ProjectType = {
   github_link: string;
   other_link: string;
   favourite: boolean;
+  created_at: string;
+  updated_at: string;
 };

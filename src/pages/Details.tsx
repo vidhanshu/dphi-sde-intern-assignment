@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { DetailsHeader } from "../components";
 import { ProjectType } from "../@types";
 import { RxExternalLink } from "react-icons/rx";
+import dayjs from "dayjs";
 import { getProjectById } from "../db";
 import styled from "@emotion/styled";
 import styles from "../styles/pages/details.module.scss";
@@ -46,9 +47,10 @@ function Details() {
           </Box>
           <Box className={styles.right} flexBasis={"20%"}>
             <p className={styles.subtitle}>Hackathon</p>
-            <h4 className={styles.title}>Presige coding challenge</h4>
+            <h4 className={styles.title}>{data.hackathon_name}</h4>
             <p className={styles.date}>
-              <AiFillCalendar /> 24 Feb 2023 - 24 March 2023
+              <AiFillCalendar /> {dayjs(data.start_date).format("D MMM YYYY")}
+              - {dayjs(data.end_date).format("D MMM YYYY")}
             </p>
             <Box display={"flex"} mt={6} flexDirection="column" gap={2}>
               <CustomButton
