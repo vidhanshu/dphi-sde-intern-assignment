@@ -1,12 +1,14 @@
 import { Container, MenuItem, Select, TextField } from "@mui/material";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 
 import { AiOutlineSearch } from "react-icons/ai";
 import Box from "@mui/material/Box";
 import Card from "../components/Card";
 import { Header } from "../components";
+import { ProjectType } from "../@types";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import { getProjects } from "../db";
 import { styled } from "@mui/material/styles";
 import styles from "../styles/pages/home.module.scss";
 
@@ -16,54 +18,21 @@ const CustomTextField = styled(TextField)({
   },
 });
 
-const DATA = [
-  {
-    title: "InterviewMe",
-    description:
-      "Built with GPT-3, React, and Flask. Practice interviews with AI and ace your next interview.",
-    img: "/images/Lorem ipsum.png",
-    link: "/details",
-    time: "2",
-  },
-  {
-    title: "InterviewMe",
-    description:
-      "Built with GPT-3, React, and Flask. Practice interviews with AI and ace your next interview.",
-    img: "/images/Lorem ipsum.png",
-    link: "/details",
-    time: "2",
-  },
-  {
-    title: "InterviewMe",
-    description:
-      "Built with GPT-3, React, and Flask. Practice interviews with AI and ace your next interview.",
-    img: "/images/Lorem ipsum.png",
-    link: "/details",
-    time: "2",
-  },
-  {
-    title: "InterviewMe",
-    description:
-      "Built with GPT-3, React, and Flask. Practice interviews with AI and ace your next interview.",
-    img: "/images/Lorem ipsum.png",
-    link: "/details",
-    time: "2",
-  },
-  {
-    title: "InterviewMe",
-    description:
-      "Built with GPT-3, React, and Flask. Practice interviews with AI and ace your next interview.",
-    img: "/images/Lorem ipsum.png",
-    link: "/details",
-    time: "2",
-  },
-];
 function Home() {
+  const [data, setData] = useState<ProjectType[]>([]);
+  const [favourites, setFavourites] = useState<ProjectType[]>([]);
+
+  useEffect(() => {
+    const temp = getProjects();
+    setData(temp);
+    setFavourites(temp.filter((e) => e.favourite));
+  }, []);
+
   return (
     <div>
       <Header />
       <Container maxWidth="xl" sx={{ padding: "50px 0px" }}>
-        <HomeTabs />
+        <HomeTabs data={data} favourites={favourites} />
       </Container>
     </div>
   );
@@ -105,7 +74,11 @@ function a11yProps(index: number) {
 }
 
 type filterType = -1 | 1;
-function HomeTabs() {
+type HomeTabsProps = {
+  data: ProjectType[];
+  favourites: ProjectType[];
+};
+function HomeTabs({ data, favourites }: HomeTabsProps) {
   const [value, setValue] = useState(0);
   const [filter, setFilter] = useState<filterType>(1);
 
@@ -176,15 +149,15 @@ function HomeTabs() {
       </Box>
       <TabPanel value={value} index={0}>
         <div className={styles.cards_grid}>
-          {DATA.map((data, _) => (
-            <Card {...data} key={data.title} />
+          {data.map((d, _) => (
+            <Card {...d} key={d.title} />
           ))}
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className={styles.cards_grid}>
-          {DATA.map((data, _) => (
-            <Card {...data} key={data.title} />
+          {favourites.map((d, _) => (
+            <Card {...d} key={d.title} />
           ))}
         </div>
       </TabPanel>

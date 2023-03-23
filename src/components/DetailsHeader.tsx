@@ -7,14 +7,18 @@ import {
   AiFillCalendar,
   AiFillDelete,
   AiFillEdit,
+  AiFillStar,
   AiOutlineStar,
 } from "react-icons/ai";
-import { Box, Button, Chip, Container, Modal } from "@mui/material";
+import { Box, Button, Chip, Container, IconButton, Modal } from "@mui/material";
+import { deleteProjectById, updateProject } from "../db";
 import { useCallback, useState } from "react";
 
 import Nav from "./Nav";
+import { ProjectType } from "../@types";
 import styled from "@emotion/styled";
 import styles from "../styles/components/detailsHeader.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const CustomButton = styled(Button)({
   borderRadius: "10px",
@@ -28,8 +32,14 @@ const CustomButton = styled(Button)({
   },
 });
 
-function DetailsHeader() {
+interface DetailsHeaderProps {
+  data: ProjectType;
+  starred: boolean;
+  setStarred: React.Dispatch<React.SetStateAction<boolean>>;
+}
+function DetailsHeader({ data, starred, setStarred }: DetailsHeaderProps) {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleModal = useCallback(() => {
     setOpen((e) => !e);
@@ -44,11 +54,16 @@ function DetailsHeader() {
         <Container maxWidth="xl" className={styles.container}>
           <div className={styles.left_header_top}>
             <div className={styles.left_header_top_left}>
-              <img src="/images/Lorem Ipsum.png" alt="" />
-              <h1 className={styles.title}>InterviewMe</h1>
+              <img src={data.image} alt="" />
+              <h1 className={styles.title}>{data.title}</h1>
             </div>
             <div className={styles.leaft_header_top_options}>
-              <CustomButton variant="outlined">
+              <CustomButton
+                variant="outlined"
+                onClick={() => {
+                  navigate(`/edit/${data.id}`);
+                }}
+              >
                 <AiFillEdit size={20} style={{ marginRight: 10 }} />
                 Edit
               </CustomButton>
@@ -59,12 +74,35 @@ function DetailsHeader() {
             </div>
           </div>
           <div className={styles.header_bottom}>
-            <p className={styles.subtitle}>
-              Built with GPT-3, React, and Flask. Practice interviews with AI
-              and ace your next interview.
-            </p>
+            <p className={styles.subtitle}>{data.summary}</p>
             <div className={styles.options}>
-              <AiOutlineStar size={25} style={{ marginRight: 10 }} />
+              {starred ? (
+                <IconButton
+                  onClick={() => {
+                    updateProject(data.id, { ...data, favourite: false });
+                    setStarred(false);
+                  }}
+                >
+                  <AiFillStar
+                    color="white"
+                    size={30}
+                    style={{ marginRight: 10 }}
+                  />
+                </IconButton>
+              ) : (
+                <IconButton
+                  onClick={() => {
+                    updateProject(data.id, { ...data, favourite: true });
+                    setStarred(true);
+                  }}
+                >
+                  <AiOutlineStar
+                    color="white"
+                    size={30}
+                    style={{ marginRight: 10 }}
+                  />
+                </IconButton>
+              )}
               <span className={styles.divider}></span>
               <Chip
                 icon={<AiFillCalendar color="white" size={20} />}
@@ -111,7 +149,11 @@ function DetailsHeader() {
               }}
               color="error"
               variant="contained"
-              onClick={handleModal}
+              onClick={() => {
+                deleteProjectById(data.id);
+                handleModal();
+                navigate("/");
+              }}
             >
               Delete
             </Button>

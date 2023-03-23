@@ -12,3 +12,17 @@
     font-weight: 400;
   }
 }
+.disabled {
+  padding: 10px 30px !important;
+  background: gray !important;
+  border-radius: 10px !important;
+  max-width: fit-content;
+
+  .text {
+    text-transform: capitalize;
+    color: var(--title-invert);
+    font-size: 16px;
+    font-family: Poppins, sans-serif;
+    font-weight: 400;
+  }
+}

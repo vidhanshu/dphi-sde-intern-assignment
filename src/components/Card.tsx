@@ -4,25 +4,26 @@
  */
 
 import { Link } from "react-router-dom";
+import { ProjectType } from "../@types";
 import styles from "../styles/components/card.module.scss";
 
-interface CardProps {
-  img: string;
-  title: string;
-  description: string;
-  link: string;
-  time: string;
-}
-function Card({ description, img, link, time, title }: CardProps) {
+function Card({
+  summary,
+  image,
+  start_date,
+  end_date,
+  title,
+  id,
+}: ProjectType) {
   return (
-    <Link to={link}>
+    <Link to={`/details/${id}`}>
       <div className={styles.card_container}>
         <div className={styles.top}>
-          <img src={img} alt="card" />
+          <img src={image} alt="card" />
           <p className={styles.title}>{title}</p>
         </div>
-        <div className={styles.middle}>{description}</div>
-        <div className={styles.bottom}>updated {time} ago</div>
+        <div className={styles.middle}>{summary}</div>
+        <div className={styles.bottom}>updated on {start_date}</div>
       </div>
     </Link>
   );

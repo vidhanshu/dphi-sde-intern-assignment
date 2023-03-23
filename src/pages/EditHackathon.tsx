@@ -1,6 +1,8 @@
 import { Box, Container } from "@mui/system";
 import { Button, TextField, TextFieldProps } from "@mui/material";
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { addProject, getProjectById, updateProject } from "../db";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { BsFillCloudArrowUpFill } from "react-icons/bs";
 import CustomButton from "../components/CustomButton";
@@ -9,15 +11,18 @@ import { HtmlHTMLAttributes } from "react";
 import { Nav } from "../components";
 import { ProjectType } from "../@types";
 import { RiImageAddLine } from "react-icons/ri";
-import { addProject } from "../db";
 import dayjs from "dayjs";
 import styles from "../styles/pages/addHackathon.module.scss";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 function AddHackathon() {
   const [formdata, setFormdata] = useState<ProjectType>({} as ProjectType);
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) setFormdata(getProjectById(id));
+  }, [id]);
 
   const handleTextFieldChange = useCallback(
     (evt: ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +64,7 @@ function AddHackathon() {
       <Nav />
       <Box className={styles.addHackathon}>
         <Container className={styles.container}>
-          <h1 className={styles.title}>New Hackathon Submission</h1>
+          <h1 className={styles.title}>Update Hackathon Details</h1>
           <CustomTextField
             value={formdata.title}
             name="title"
@@ -175,15 +180,19 @@ function AddHackathon() {
           />
           <CustomButton
             onClick={() => {
-              addProject(formdata);
-              setFormdata({} as ProjectType);
-              toast.success("Successfully added");
-              navigate("/");
+              if (id) {
+                updateProject(id, formdata);
+                setFormdata({} as ProjectType);
+                navigate("/");
+                toast.success("Updated successfully");
+                return;
+              }
+              toast.error("Id is missing");
             }}
             disabled={shouldKeeptDisabled}
           >
             {!shouldKeeptDisabled
-              ? "Upload Submission"
+              ? "Update Submission"
               : "Fill All Required Fields"}
           </CustomButton>
         </Container>
