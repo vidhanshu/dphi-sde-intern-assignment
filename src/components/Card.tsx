@@ -1,3 +1,8 @@
+/**
+ * @author @vidhanshu
+ * @description this component is responsible for rendering the hackathon cards in the home page
+ */
+
 import { Link } from "react-router-dom";
 import styles from "../styles/components/card.module.scss";
 

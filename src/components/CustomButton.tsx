@@ -1,3 +1,8 @@
+/**
+ * @author @vidhanshu
+ * @description this component is responsible rendering the custom button
+ */
+
 import { Button } from "@mui/material";
 import { ButtonProps } from "@mui/material";
 import styles from "../styles/components/customButton.module.scss";

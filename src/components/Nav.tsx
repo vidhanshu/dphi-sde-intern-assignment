@@ -1,3 +1,8 @@
+/**
+ * @author @vidhanshu
+ * @description this component is responsible for rendering the Navigation bar
+ */
+
 import { Container } from "@mui/material";
 import { Link } from "react-router-dom";
 

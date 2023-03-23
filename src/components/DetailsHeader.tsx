@@ -1,3 +1,8 @@
+/**
+ * @author @vidhanshu
+ * @description this component is responsible for rendering the header of the hackathon details page
+ */
+
 import {
   AiFillCalendar,
   AiFillDelete,

@@ -1,3 +1,8 @@
+/**
+ * @author @vidhanshu
+ * @description this component is responsible for rendering the header of the landing page
+ */
+
 import { Box, Container } from "@mui/material";
 
 import CustomButton from "./CustomButton";
