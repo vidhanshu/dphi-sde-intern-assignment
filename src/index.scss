@@ -9,10 +9,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  --primary: #44924c;
+  --secondary: #003145;
+
+  --title: #333333;
+  --text: #222222;
+
+  --title-invert: #ffffff;
+  --text-invert: #ffffff;
+}
+
 a {
   text-decoration: none;
   color: black;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

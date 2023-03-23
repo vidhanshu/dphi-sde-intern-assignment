@@ -1,14 +1,14 @@
 .button {
-  padding: 10px 30px;
-  background: #44924c !important;
-  border-radius: 10px;
+  padding: 10px 30px !important;
+  background: var(--primary) !important;
+  border-radius: 10px !important;
   max-width: fit-content;
-  border: 1px solid red;
+
   .text {
     text-transform: capitalize;
-    color: white;
+    color: var(--title-invert);
     font-size: 16px;
-    font-weight: 600;
-    font-family: Popins, sans-serif;
+    font-family: Poppins, sans-serif;
+    font-weight: 400;
   }
 }

@@ -1,6 +1,7 @@
 import { Box, Container } from "@mui/material";
 
 import CustomButton from "./CustomButton";
+import { Link } from "react-router-dom";
 import Nav from "./Nav";
 import styles from "../styles/components/header.module.scss";
 
@@ -20,7 +21,9 @@ function Header() {
               duis porta turpis eget suspendisse ac pharetra amet. Vel nisl
               tempus nec vitae.
             </p>
-            <CustomButton variant="contained">Upload Submission</CustomButton>
+            <Link to="/add">
+              <CustomButton variant="contained">Upload Submission</CustomButton>
+            </Link>
           </div>
           <div className={styles.right_header}>
             <img alt="header" src="/images/Hand holding bulb 3D.png" />

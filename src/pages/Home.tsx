@@ -22,7 +22,7 @@ const DATA = [
     description:
       "Built with GPT-3, React, and Flask. Practice interviews with AI and ace your next interview.",
     img: "/images/Lorem ipsum.png",
-    link: "/:id",
+    link: "/details",
     time: "2",
   },
   {
@@ -30,7 +30,7 @@ const DATA = [
     description:
       "Built with GPT-3, React, and Flask. Practice interviews with AI and ace your next interview.",
     img: "/images/Lorem ipsum.png",
-    link: "/:id",
+    link: "/details",
     time: "2",
   },
   {
@@ -38,7 +38,7 @@ const DATA = [
     description:
       "Built with GPT-3, React, and Flask. Practice interviews with AI and ace your next interview.",
     img: "/images/Lorem ipsum.png",
-    link: "/:id",
+    link: "/details",
     time: "2",
   },
   {
@@ -46,7 +46,7 @@ const DATA = [
     description:
       "Built with GPT-3, React, and Flask. Practice interviews with AI and ace your next interview.",
     img: "/images/Lorem ipsum.png",
-    link: "/:id",
+    link: "/details",
     time: "2",
   },
   {
@@ -54,7 +54,7 @@ const DATA = [
     description:
       "Built with GPT-3, React, and Flask. Practice interviews with AI and ace your next interview.",
     img: "/images/Lorem ipsum.png",
-    link: "/:id",
+    link: "/details",
     time: "2",
   },
 ];

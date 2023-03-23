@@ -1,14 +1,20 @@
+import { AddHackathon, Details, Home } from "./pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { Home } from "./pages";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/details" element={<Details />} />
+          <Route path="/add" element={<AddHackathon />} />
+        </Routes>
+      </BrowserRouter>
+    </LocalizationProvider>
   );
 }
 
