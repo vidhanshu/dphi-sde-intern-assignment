@@ -4,6 +4,7 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import Box from "@mui/material/Box";
 import Card from "../components/Card";
+import CustomButton from "../components/CustomButton";
 import { Header } from "../components";
 import { ProjectType } from "../@types";
 import Tab from "@mui/material/Tab";
@@ -11,6 +12,7 @@ import Tabs from "@mui/material/Tabs";
 import { getProjects } from "../db";
 import { styled } from "@mui/material/styles";
 import styles from "../styles/pages/home.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-notchedOutline": {
@@ -115,6 +117,7 @@ function HomeTabs({
   setFavourites,
 }: HomeTabsProps) {
   const [value, setValue] = useState(0);
+  const navigate = useNavigate();
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -219,16 +222,32 @@ function HomeTabs({
       </Box>
       <TabPanel value={value} index={0}>
         <div className={styles.cards_grid}>
-          {data.map((d, _) => (
-            <Card {...d} key={d.id} />
-          ))}
+          {data.length > 0 ? (
+            data.map((d, _) => <Card {...d} key={d.id} />)
+          ) : (
+            <Box>
+              <h1 style={{ color: "gray" }}>No Hackathon data</h1>
+              <CustomButton
+                sx={{ mt: 2 }}
+                onClick={() => {
+                  navigate("/add");
+                }}
+              >
+                Add from here
+              </CustomButton>
+            </Box>
+          )}
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className={styles.cards_grid}>
-          {favourites.map((d, _) => (
-            <Card {...d} key={d.id} />
-          ))}
+          {favourites.length > 0 ? (
+            favourites.map((d, _) => <Card {...d} key={d.id} />)
+          ) : (
+            <Box>
+              <h1 style={{ color: "gray" }}>No Favourite data</h1>
+            </Box>
+          )}
         </div>
       </TabPanel>
     </Box>
