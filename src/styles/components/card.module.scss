@@ -1,17 +1,19 @@
 .card_container {
-  box-shadow: 0px 3px 24px 0px rgba(132, 132, 132, 0.16);
-  border-radius: 10px;
+  box-shadow: 0px 3px 24px 0px #84848429, 0px -3px 6px 0px #0000000f inset,
+    0px 3px 1.7000000476837158px 0px #ffffff00 inset;
+  border-radius: 15px;
   padding: 24px;
   display: flex;
-  max-width: 400px;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  width: 100%;
+  background: white;
 
   .top {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 25px;
     img {
       width: 100px;
       height: 100px;

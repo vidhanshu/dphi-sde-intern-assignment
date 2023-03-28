@@ -34,6 +34,12 @@
         .title {
           font-size: 42px;
           font-weight: 600;
+          @media screen and (max-width: 768px) {
+            font-size: 32px;
+          }
+          @media screen and (max-width: 500px) {
+            font-size: 25px;
+          }
         }
       }
       .leaft_header_top_options {
@@ -67,6 +73,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
   .card {
     max-width: 400px;
     background: white;
@@ -79,7 +86,7 @@
     .text {
       font-size: 14px;
       font-weight: 400;
-      margin:10px 0px;
+      margin: 10px 0px;
     }
     .options {
       display: flex;

@@ -81,7 +81,7 @@ function AddHackathon() {
     <>
       <Nav />
       <Box className={styles.addHackathon}>
-        <Container className={styles.container}>
+        <Container className={`${styles.container} container`}>
           <h1 className={styles.title}>New Hackathon Submission</h1>
           <CustomTextField
             value={formdata.title}

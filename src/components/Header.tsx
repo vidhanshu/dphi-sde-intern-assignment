@@ -17,7 +17,7 @@ function Header() {
       <Nav />
       {/* Header */}
       <Box className={styles.wrapper}>
-        <Container maxWidth="xl" className={styles.container}>
+        <Container maxWidth="xl" className={`${styles.container} container`}>
           <div className={styles.left_header}>
             <h1 className={styles.title}>Hackathon Submissions</h1>
             <p className={styles.subtitle}>

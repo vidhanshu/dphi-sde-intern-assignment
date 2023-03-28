@@ -17,7 +17,21 @@ import { toast } from "react-toastify";
 import validator from "validator";
 
 function AddHackathon() {
-  const [formdata, setFormdata] = useState<ProjectType>({} as ProjectType);
+  const [formdata, setFormdata] = useState<ProjectType>({
+    id: "",
+    title: "",
+    description: "",
+    summary: "",
+    image: "",
+    hackathon_name: "",
+    start_date: dayjs(new Date()).format("MM/DD/YYYY").toString(),
+    end_date: dayjs(new Date()).format("MM/DD/YYYY").toString(),
+    github_link: "",
+    other_link: "",
+    favourite: false,
+    created_at: dayjs(new Date()).format("MM/DD/YYYY").toString(),
+    updated_at: dayjs(new Date()).format("MM/DD/YYYY").toString(),
+  });
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -64,7 +78,7 @@ function AddHackathon() {
     <>
       <Nav />
       <Box className={styles.addHackathon}>
-        <Container className={styles.container}>
+        <Container className={`${styles.container} container`}>
           <h1 className={styles.title}>Update Hackathon Details</h1>
           <CustomTextField
             value={formdata.title}

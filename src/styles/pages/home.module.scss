@@ -1,7 +1,13 @@
 .cards_grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 250px;
-  grid-auto-rows: 250px;
-  row-gap: 90px;
+  grid-gap: 50px;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr !important;
+  }
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  grid-template-rows: 300px;
+  grid-auto-rows: 300px;
 }

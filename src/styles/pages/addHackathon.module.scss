@@ -1,7 +1,7 @@
 .addHackathon {
   min-height: 100vh;
   // background: #f8f9fd;
-  background: #d8def7;
+  background: #f8f9fd;
   padding: 50px 0px;
 
   .container {
@@ -11,10 +11,16 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    @media screen and (max-width: 768px) {
+      padding: 20px 15px;
+    }
 
     .title {
       font-size: 29px;
       font-weight: 500;
+      @media screen and (max-width: 768px) {
+        font-size: 20px;
+      }
     }
     .hdates_container {
       display: flex;
@@ -36,11 +42,17 @@
 .label {
   font-size: 17px;
   font-weight: 400;
+  @media screen and (max-width: 768px) {
+    font-size: 15px;
+  }
 }
 .info {
   font-size: 16px;
   font-weight: 400;
   color: #858585;
+  @media screen and (max-width: 768px) {
+    font-size: 15px;
+  }
 }
 
 .file_upload_field {

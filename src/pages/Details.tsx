@@ -39,8 +39,16 @@ function Details() {
   return (
     <div>
       <DetailsHeader data={data} starred={starred} setStarred={setStarred} />
-      <Container maxWidth="xl" fixed className={styles.container}>
-        <Box display={"flex"} justifyContent={"space-between"}>
+      <Container
+        maxWidth="xl"
+        fixed
+        className={`${styles.container} container`}
+      >
+        <Box
+          className={styles.wrapper}
+          display={"flex"}
+          justifyContent={"space-between"}
+        >
           <Box className={styles.left} flexBasis={"70%"}>
             <p className={styles.small_title}>Details</p>
             <p className={styles.text}>{data.description}</p>
@@ -49,8 +57,8 @@ function Details() {
             <p className={styles.subtitle}>Hackathon</p>
             <h4 className={styles.title}>{data.hackathon_name}</h4>
             <p className={styles.date}>
-              <AiFillCalendar /> {dayjs(data.start_date).format("D MMM YYYY")}
-              - {dayjs(data.end_date).format("D MMM YYYY")}
+              <AiFillCalendar /> {dayjs(data.start_date).format("D MMM YYYY")}-{" "}
+              {dayjs(data.end_date).format("D MMM YYYY")}
             </p>
             <Box display={"flex"} mt={6} flexDirection="column" gap={2}>
               <CustomButton

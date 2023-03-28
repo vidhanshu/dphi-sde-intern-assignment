@@ -10,7 +10,15 @@ import {
   AiFillStar,
   AiOutlineStar,
 } from "react-icons/ai";
-import { Box, Button, Chip, Container, IconButton, Modal } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  Container,
+  IconButton,
+  Modal,
+  useMediaQuery,
+} from "@mui/material";
 import { deleteProjectById, updateProject } from "../db";
 import { useCallback, useState } from "react";
 
@@ -36,6 +44,7 @@ const CustomButton = styled(Button)({
 function DetailsHeader({ data, starred, setStarred }: DetailsHeaderProps) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const matches = useMediaQuery("(min-width:600px)");
 
   const handleModal = useCallback(() => {
     setOpen((e) => !e);
@@ -47,7 +56,7 @@ function DetailsHeader({ data, starred, setStarred }: DetailsHeaderProps) {
       <Nav />
       {/* Header */}
       <Box className={styles.wrapper}>
-        <Container maxWidth="xl" className={styles.container}>
+        <Container maxWidth="xl" className={`${styles.container} container`}>
           <div className={styles.left_header_top}>
             <div className={styles.left_header_top_left}>
               <img src={data.image} alt="" />
@@ -61,11 +70,11 @@ function DetailsHeader({ data, starred, setStarred }: DetailsHeaderProps) {
                 }}
               >
                 <AiFillEdit size={20} style={{ marginRight: 10 }} />
-                Edit
+                {matches ? "Edit" : ""}
               </CustomButton>
               <CustomButton variant="outlined" onClick={handleModal}>
                 <AiFillDelete size={20} style={{ marginRight: 10 }} />
-                Delete
+                {matches ? "Delete" : ""}
               </CustomButton>
             </div>
           </div>

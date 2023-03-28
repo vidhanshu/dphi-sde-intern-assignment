@@ -3,6 +3,7 @@ import { SyntheticEvent, useEffect, useState } from "react";
 
 import { AiOutlineSearch } from "react-icons/ai";
 import Box from "@mui/material/Box";
+import { BoxProps } from "@mui/system";
 import Card from "../components/Card";
 import CustomButton from "../components/CustomButton";
 import { Header } from "../components";
@@ -33,9 +34,37 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    <div style={{ background: "#F8F9FD" }}>
       <Header />
-      <Container maxWidth="xl" sx={{ padding: "50px 0px" }}>
+      <Container
+        sx={{
+          padding: "50px 0px !important",
+          maxWidth: {
+            xs: "95%",
+            sm: "95%",
+            md: "95%",
+            xl: "xl",
+          },
+        }}
+        className="container"
+      >
+        <SearchBarWithFilter
+          filter={filter}
+          setFilter={setFilter}
+          search={search}
+          setSearch={setSearch}
+          setData={setData}
+          setFavourites={setFavourites}
+          sx={{
+            display: {
+              xs: "flex",
+              md: "none",
+            },
+            marginBottom: "20px",
+          }}
+          gap={5}
+          alignItems={"center"}
+        />
         <HomeTabs
           setFavourites={setFavourites}
           filter={filter}
@@ -157,68 +186,22 @@ function HomeTabs({
             {...a11yProps(1)}
           />
         </Tabs>
-        <Box display={"flex"} gap={5} alignItems={"center"}>
-          <CustomTextField
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearch(e.target.value);
-            }}
-            value={search}
-            size="small"
-            className={styles.search_input}
-            id="outlined-basic"
-            variant="outlined"
-            placeholder="Search"
-            InputProps={{
-              startAdornment: (
-                <AiOutlineSearch size={30} style={{ marginRight: 10 }} />
-              ),
-            }}
-          />
-          <Select
-            sx={{
-              borderRadius: "20px",
-            }}
-            size="small"
-            id="demo-simple-select"
-            value={filter}
-            onChange={(e) => {
-              setFilter(e.target.value as filterType);
-              setData((prev) => {
-                return prev.sort((a, b) => {
-                  if (filter === 1) {
-                    return (
-                      new Date(b.created_at).getTime() -
-                      new Date(a.created_at).getTime()
-                    );
-                  } else {
-                    return (
-                      new Date(a.created_at).getTime() -
-                      new Date(b.created_at).getTime()
-                    );
-                  }
-                });
-              });
-              setFavourites((prev) => {
-                return prev.sort((a, b) => {
-                  if (filter === 1) {
-                    return (
-                      new Date(b.created_at).getTime() -
-                      new Date(a.created_at).getTime()
-                    );
-                  } else {
-                    return (
-                      new Date(a.created_at).getTime() -
-                      new Date(b.created_at).getTime()
-                    );
-                  }
-                });
-              });
-            }}
-          >
-            <MenuItem value={1}>Newest</MenuItem>
-            <MenuItem value={-1}>Oldest</MenuItem>
-          </Select>
-        </Box>
+        <SearchBarWithFilter
+          filter={filter}
+          setFilter={setFilter}
+          search={search}
+          setSearch={setSearch}
+          setData={setData}
+          setFavourites={setFavourites}
+          sx={{
+            display: {
+              xs: "none",
+              md: "flex",
+            },
+          }}
+          gap={5}
+          alignItems={"center"}
+        />
       </Box>
       <TabPanel value={value} index={0}>
         <div className={styles.cards_grid}>
@@ -253,3 +236,86 @@ function HomeTabs({
     </Box>
   );
 }
+
+interface SearchBarWithFilterProps extends BoxProps {
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  search: string;
+  filter: filterType;
+  setFilter: React.Dispatch<React.SetStateAction<filterType>>;
+  setData: React.Dispatch<React.SetStateAction<ProjectType[]>>;
+  setFavourites: React.Dispatch<React.SetStateAction<ProjectType[]>>;
+}
+const SearchBarWithFilter = ({
+  filter,
+  search,
+  setFilter,
+  setSearch,
+  setData,
+  setFavourites,
+  ...props
+}: SearchBarWithFilterProps) => {
+  return (
+    <Box {...props}>
+      <CustomTextField
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          setSearch(e.target.value);
+        }}
+        value={search}
+        size="small"
+        className={styles.search_input}
+        id="outlined-basic"
+        variant="outlined"
+        placeholder="Search"
+        InputProps={{
+          startAdornment: (
+            <AiOutlineSearch size={30} style={{ marginRight: 10 }} />
+          ),
+        }}
+      />
+      <Select
+        sx={{
+          borderRadius: "20px",
+        }}
+        size="small"
+        id="demo-simple-select"
+        value={filter}
+        onChange={(e) => {
+          setFilter(e.target.value as filterType);
+          setData((prev) => {
+            return prev.sort((a, b) => {
+              if (filter === 1) {
+                return (
+                  new Date(b.created_at).getTime() -
+                  new Date(a.created_at).getTime()
+                );
+              } else {
+                return (
+                  new Date(a.created_at).getTime() -
+                  new Date(b.created_at).getTime()
+                );
+              }
+            });
+          });
+          setFavourites((prev) => {
+            return prev.sort((a, b) => {
+              if (filter === 1) {
+                return (
+                  new Date(b.created_at).getTime() -
+                  new Date(a.created_at).getTime()
+                );
+              } else {
+                return (
+                  new Date(a.created_at).getTime() -
+                  new Date(b.created_at).getTime()
+                );
+              }
+            });
+          });
+        }}
+      >
+        <MenuItem value={1}>Newest</MenuItem>
+        <MenuItem value={-1}>Oldest</MenuItem>
+      </Select>
+    </Box>
+  );
+};

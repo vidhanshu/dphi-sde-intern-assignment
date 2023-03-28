@@ -2,12 +2,22 @@
   display: flex;
   justify-content: space-between;
   padding: 50px 0px;
+  .wrapper {
+    @media screen and (max-width: 1099px) {
+      flex-direction: column-reverse;
+      gap: 50px;
+    }
+  }
 
   .small_title {
     font-size: 20px;
     font-weight: 400;
     line-height: 30px;
     margin-bottom: 20px;
+    @media screen and (max-width: 768px) {
+      font-size: 16px;
+      line-height: 26px;
+    }
   }
   .text {
     font-size: 16px;

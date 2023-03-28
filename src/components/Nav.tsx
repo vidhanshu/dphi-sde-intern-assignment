@@ -11,6 +11,7 @@ export default function ButtonAppBar() {
     <Container
       maxWidth="xl"
       sx={{ padding: "15px 0px !important", background: "#fff" }}
+      className="container"
     >
       <Link to="/">
         <img

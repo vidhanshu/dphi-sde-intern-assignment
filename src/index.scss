@@ -7,6 +7,7 @@
   font-family: Poppins, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 :root {
@@ -21,7 +22,7 @@
 }
 div,
 p {
-  line-break: anywhere;
+  word-break: break-word;
 }
 a {
   text-decoration: none;
@@ -31,4 +32,14 @@ a {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.container {
+  max-width: 95%;
+  @media screen and (max-width: 1800px) {
+    max-width: 1200px !important;
+  }
+  @media screen and (max-width: 1250px) {
+    max-width: 90% !important;
+  }
 }
