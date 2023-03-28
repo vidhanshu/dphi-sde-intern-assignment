@@ -275,6 +275,7 @@ const SearchBarWithFilter = ({
       <Select
         sx={{
           borderRadius: "20px",
+          minWidth: "120px",
         }}
         size="small"
         id="demo-simple-select"
