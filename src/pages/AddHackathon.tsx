@@ -215,6 +215,11 @@ function AddHackathon() {
                 toast.error("Invalid Other URL");
                 return;
               }
+              if (formdata.start_date > formdata.end_date) {
+                toast.error("Start date cannot be greater than end date");
+                return;
+              }
+
               addProject(formdata);
               setFormdata({} as ProjectType);
               toast.success("Successfully added");
